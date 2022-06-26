@@ -189,6 +189,9 @@ class Controller():
 
                 self.saver(each_search_res, each_review_res)
 
+    def get_infos(self):
+        return saver.get_infos()
+
     def get_review(self, shop_id, detail=False):
         shopInfo = saver.get_data(shop_id)
         if shopInfo['status'] == 1:

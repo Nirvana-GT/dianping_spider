@@ -66,7 +66,7 @@ class Review():
 
             text = r.text
             # 获取加密文件
-            file_map = get_review_map_file(text)
+            file_map = get_review_map_file(text, r.request.headers.get("cookie"))
             # 替换加密字符串
             text = requests_util.replace_review_html(text, file_map)
             html = BeautifulSoup(text, 'lxml')

@@ -55,13 +55,12 @@ class MongoSaver():
         else:
             raise Exception
 
-    def get_data(self, shop_id):
+    def get_infos(self):
         """
         获取数据
-        :param shop_id:
         :return:
         """
-        return self.get_info_data(shop_id)
+        return self.get_infos_data()
 
     def update_info_status(self, shop_id, status):
         """
@@ -112,6 +111,15 @@ class MongoSaver():
         """
         col = self.database['info']
         return col.find_one({'店铺id': shop_id})
+
+
+    def get_infos_data(self):
+        """
+        获取商家数据
+        :return:
+        """
+        col = self.database['info']
+        return col.find()
 
     def update_status(self, shop_id, status):
         """

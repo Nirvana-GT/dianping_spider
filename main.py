@@ -50,7 +50,13 @@ if __name__ == '__main__':
         controller.get_detail(shop_id, detail=args.need_more)
     if args.review == 1:
         shop_id = args.shop_id
-        shop_ids = str.split(shop_id, ',')
+        if shop_id == '':
+            infos = controller.get_infos()
+            for info in infos:
+                logger.info('爬取店铺id：' + info["店铺id"] + '评论')
+                controller.get_review(info["店铺id"], detail=args.need_more)
+        else:
+            shop_ids = str.split(shop_id, ',')
         for shop_id in shop_ids:
             logger.info('爬取店铺id：' + shop_id + '评论')
             controller.get_review(shop_id, detail=args.need_more)

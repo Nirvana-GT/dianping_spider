@@ -346,7 +346,7 @@ def get_header():
     return header
 
 
-def get_review_map_file(page_source):
+def get_review_map_file(page_source, cookie):
     """
     获取评论页加密文件
     :param page_source:
@@ -358,6 +358,7 @@ def get_review_map_file(page_source):
         css_url = 'https:' + re.findall(' href="(//s3plus.meituan.net/v1/.*?)">', page_source)[0]
     except:
         global_logger.warning('cookie失效或者被限制访问，更新cookie或登录大众点评滑动验证')
+        global_logger.warning('cookie：' + cookie)
         sys.exit()
     # 下载css文件
     r = requests_util.get_requests(css_url, request_type='no header')

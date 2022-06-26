@@ -66,7 +66,16 @@ class Saver():
         """
 
         for each in self.saver_list:
-            return each.get_data(shop_id)
+            return each.get_info_data(shop_id)
+
+    def get_infos(self):
+        """
+        获取数据
+        :return:
+        """
+
+        for each in self.saver_list:
+            return each.get_infos()
 
     def update_info_status(self, shop_id, status):
         """
