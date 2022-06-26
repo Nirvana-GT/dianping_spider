@@ -47,7 +47,7 @@ class Saver():
             mongo_saver = MongoSaver()
             self.saver_list.append(mongo_saver)
 
-    def save_data(self, data, data_type):
+    def save_data(self, data, data_type, start_page, end_page):
         """
         保存数据
         :param data:
@@ -56,7 +56,7 @@ class Saver():
         """
         assert data_type in ['search', 'detail', 'review']
         for each in self.saver_list:
-            each.save_data(data, data_type)
+            each.save_data(data, data_type, start_page, end_page)
 
 
 saver = Saver()

@@ -193,7 +193,7 @@ class Controller():
             each_review_res = self.r.get_review(shop_id)
         else:
             each_review_res = get_basic_review(shop_id)
-        saver.save_data(each_review_res, 'review')
+        saver.save_data(each_review_res, 'review', self.r.start_page, self.r.start_page + self.r.pages_needed - 1)
 
     def get_detail(self, shop_id, detail=False):
         each_detail_res = {}
@@ -213,7 +213,7 @@ class Controller():
             each_detail_res.update({
                 '其他信息': '-'
             })
-        saver.save_data(each_detail_res, 'detail')
+        saver.save_data(each_detail_res, 'detail', 1, 10)
 
     def get_search_url(self, cur_page):
         """
@@ -232,14 +232,14 @@ class Controller():
 
     def saver(self, each_search_res, each_review_res):
         # save search
-        saver.save_data(each_search_res, 'search')
+        saver.save_data(each_search_res, 'search', 1, 10)
         # save detail
         # if spider_config.NEED_DETAIL:
         #     saver.save_data(each_detail_res, 'detail')
 
         # save review
         if spider_config.NEED_REVIEW:
-            saver.save_data(each_review_res, 'review')
+            saver.save_data(each_review_res, 'review', 1, 10)
 
 
 controller = Controller()

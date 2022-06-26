@@ -29,6 +29,7 @@ from utils.spider_config import spider_config
 
 class Review():
     def __init__(self):
+        self.start_page = spider_config.NEED_REVIEW_START_PAGE
         self.pages_needed = spider_config.NEED_REVIEW_PAGES
         self.is_ban = False
 
@@ -47,7 +48,7 @@ class Review():
             }
             return return_data
         all_pages = -1
-        cur_pages = 1
+        cur_pages = self.start_page
         all_review = []
         while all_pages == -1 or all_pages > 0:
             url = 'http://www.dianping.com/shop/' + str(shop_id) + '/review_all/p' + str(cur_pages)

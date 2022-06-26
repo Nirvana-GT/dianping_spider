@@ -38,7 +38,7 @@ class MongoSaver():
                 u'系统中可能没有安装或启动MongoDB数据库，请先根据系统环境安装或启动MongoDB，再运行程序')
             sys.exit()
 
-    def save_data(self, data, data_type):
+    def save_data(self, data, data_type, start_page, end_page):
         """
         保存数据
         :param data:
@@ -51,7 +51,7 @@ class MongoSaver():
         elif data_type == 'detail':
             self.save_detail_list(data)
         elif data_type == 'review':
-            self.save_review_list(data)
+            self.save_review_list(data, start_page, end_page)
         else:
             raise Exception
 
@@ -77,13 +77,13 @@ class MongoSaver():
         col.insert(data)
 
 
-    def save_review_list(self, data):
+    def save_review_list(self, data, start_page, end_page):
         """
         保存评论数据
         :param data:
         :return:
         """
-        col = self.database['review']
+        col = self.database['review_' + data['店铺id'] + str(start_page) + '-' + str(end_page)]
         col.delete_many({'店铺id': data['店铺id']})
         col.insert(data)
 

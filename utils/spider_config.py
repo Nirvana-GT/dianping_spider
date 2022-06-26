@@ -85,11 +85,13 @@ class Config():
             logger.warn('开启了评论详情模式，会降低速度并增加反爬概率')
             try:
                 self.NEED_REVIEW_PAGES = int(require_config.getRaw('shop_review', 'need_pages'))
+                self.NEED_REVIEW_START_PAGE = int(require_config.getRaw('shop_review', 'start_page'))
             except:
                 logger.error('need_pages 必须为整数')
                 exit()
         else:
             self.NEED_REVIEW_PAGES = 0
+            self.NEED_REVIEW_START_PAGE = 1
 
 
 spider_config = Config()
