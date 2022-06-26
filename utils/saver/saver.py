@@ -58,5 +58,26 @@ class Saver():
         for each in self.saver_list:
             each.save_data(data, data_type, start_page, end_page)
 
+    def get_data(self, shop_id):
+        """
+        获取数据
+        :param shop_id:
+        :return:
+        """
+
+        for each in self.saver_list:
+            return each.get_data(shop_id)
+
+    def update_info_status(self, shop_id, status):
+        """
+        获取数据
+        :param shop_id:
+        :param status:
+        :return:
+        """
+
+        for each in self.saver_list:
+            each.update_info_status(shop_id, status)
+
 
 saver = Saver()

@@ -77,6 +77,7 @@ class Controller():
                 '店铺均分': -,
                 '推荐菜': -,
                 '店铺总分': -,
+                'status'：4,
             }
             """
             search_res = self.s.search(search_url, request_type)
@@ -189,11 +190,26 @@ class Controller():
                 self.saver(each_search_res, each_review_res)
 
     def get_review(self, shop_id, detail=False):
-        if detail:
-            each_review_res = self.r.get_review(shop_id)
+        shopInfo = saver.get_data(shop_id)
+        if shopInfo['status'] == 1:
+            logger.warning('店铺' + shop_id + '爬取正在进行中')
+        elif shopInfo['status'] == 2:
+            logger.warning('店铺' + shop_id + '爬取已完成')
         else:
-            each_review_res = get_basic_review(shop_id)
-        saver.save_data(each_review_res, 'review', self.r.start_page, self.r.start_page + self.r.pages_needed - 1)
+            saver.update_info_status(shop_id, 1)
+            if detail:
+                try:
+                    each_review_res = self.r.get_review(shop_id)
+                except:
+                    saver.update_info_status(shop_id, 3)
+                    return
+            else:
+                each_review_res = get_basic_review(shop_id)
+            if each_review_res['精选评论'] == 'ban':
+                saver.update_info_status(shop_id, 3)
+            else:
+                saver.update_info_status(shop_id, 2)
+                saver.save_data(each_review_res, 'review', self.r.start_page, self.r.start_page + self.r.pages_needed - 1)
 
     def get_detail(self, shop_id, detail=False):
         each_detail_res = {}

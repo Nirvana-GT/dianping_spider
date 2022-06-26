@@ -55,6 +55,23 @@ class MongoSaver():
         else:
             raise Exception
 
+    def get_data(self, shop_id):
+        """
+        获取数据
+        :param shop_id:
+        :return:
+        """
+        return self.get_info_data(shop_id)
+
+    def update_info_status(self, shop_id, status):
+        """
+        获取数据
+        :param shop_id:
+        :param status:
+        :return:
+        """
+        return self.update_status(shop_id, status)
+
     def save_search_list(self, data):
         """
         保存搜索结果
@@ -86,4 +103,23 @@ class MongoSaver():
         col = self.database['review_' + data['店铺id'] + str(start_page) + '-' + str(end_page)]
         col.delete_many({'店铺id': data['店铺id']})
         col.insert(data)
+
+    def get_info_data(self, shop_id):
+        """
+        获取商家数据
+        :param shop_id:
+        :return:
+        """
+        col = self.database['info']
+        return col.find_one({'店铺id': shop_id})
+
+    def update_status(self, shop_id, status):
+        """
+        获取商家数据
+        :param shop_id:
+        :param status:
+        :return:
+        """
+        col = self.database['info']
+        return col.update_one({'店铺id': shop_id}, {'$set': {'status': status}})
 

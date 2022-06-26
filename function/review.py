@@ -34,6 +34,7 @@ class Review():
         self.is_ban = False
 
     def get_review(self, shop_id, request_type='proxy, cookie', last_chance=False):
+
         if self.is_ban and spider_config.USE_COOKIE_POOL is False:
             logger.warning('评论页请求被ban，程序继续运行')
             return_data = {
