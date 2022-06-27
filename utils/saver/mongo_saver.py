@@ -119,7 +119,7 @@ class MongoSaver():
         :return:
         """
         col = self.database['info']
-        return col.find()
+        return col.find({'status': {'$in': [1, 3, 4]}})
 
     def update_status(self, shop_id, status):
         """

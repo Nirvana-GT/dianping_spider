@@ -194,9 +194,10 @@ class Controller():
 
     def get_review(self, shop_id, detail=False):
         shopInfo = saver.get_data(shop_id)
-        if shopInfo['status'] == 1:
-            logger.warning('店铺' + shop_id + '爬取正在进行中')
-        elif shopInfo['status'] == 2:
+        # if shopInfo['status'] == 1:
+        #     logger.warning('店铺' + shop_id + '爬取正在进行中')
+        # el
+        if shopInfo['status'] == 2:
             logger.warning('店铺' + shop_id + '爬取已完成')
         else:
             saver.update_info_status(shop_id, 1)
